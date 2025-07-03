@@ -1,0 +1,9 @@
+.app {
+  min-height: 100vh;
+  @include flex-center;
+  padding: $spacing-lg;
+  
+  @include respond-to('md') {
+    padding: $spacing-xxl;
+  }
+}
