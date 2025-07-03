@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, onShowForgotPassword, onShowRegistration }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -80,6 +80,16 @@ const Login = ({ onLogin }) => {
         <button type="submit" disabled={isLoading} className="login-button">
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
+
+        <div className="auth-links">
+          <button type="button" className="link-button" onClick={onShowForgotPassword}>
+            Forgot Password?
+          </button>
+          <span className="separator">|</span>
+          <button type="button" className="link-button" onClick={onShowRegistration}>
+            Create Account
+          </button>
+        </div>
 
         <div className="demo-credentials">
           <p><strong>Demo credentials:</strong></p>
