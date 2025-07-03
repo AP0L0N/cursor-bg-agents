@@ -1,0 +1,201 @@
+// Button mixins
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $border-radius-base;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all $transition-base;
+  outline: none;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  color: $background-white;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: $shadow-medium;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: $background-white;
+  color: $primary-color;
+  border: 2px solid $primary-color;
+  
+  &:hover:not(:disabled) {
+    background: $primary-color;
+    color: $background-white;
+  }
+}
+
+@mixin button-link {
+  @include button-base;
+  background: none;
+  color: $primary-color;
+  text-decoration: underline;
+  border: none;
+  padding: 0;
+  
+  &:hover:not(:disabled) {
+    color: $primary-dark;
+  }
+}
+
+// Card mixins
+@mixin card-base {
+  background: $background-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-large;
+  transition: transform $transition-base;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin card-padding($size: 'medium') {
+  @if $size == 'small' {
+    padding: $spacing-xl;
+  } @else if $size == 'medium' {
+    padding: $spacing-xxxl;
+  } @else if $size == 'large' {
+    padding: $spacing-xxxxl;
+  }
+}
+
+// Form mixins
+@mixin form-input {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2px solid $border-color;
+  border-radius: $border-radius-base;
+  font-size: $font-size-base;
+  transition: border-color $transition-base, box-shadow $transition-base;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+  
+  &:disabled {
+    background-color: $background-light;
+    cursor: not-allowed;
+  }
+}
+
+@mixin form-label {
+  display: block;
+  margin-bottom: $spacing-sm;
+  color: $text-secondary;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-sm;
+}
+
+@mixin form-group {
+  margin-bottom: $spacing-xl;
+}
+
+// Layout mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container($max-width: $breakpoint-lg) {
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+}
+
+// Text mixins
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin heading($size: 'medium') {
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-lg;
+  
+  @if $size == 'small' {
+    font-size: $font-size-lg;
+  } @else if $size == 'medium' {
+    font-size: $font-size-xl;
+  } @else if $size == 'large' {
+    font-size: $font-size-xxl;
+  } @else if $size == 'xl' {
+    font-size: $font-size-xxxl;
+  }
+}
+
+// Responsive mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'sm' {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl' {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+// Animation mixins
+@mixin loading-animation {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
